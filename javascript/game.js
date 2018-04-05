@@ -1,6 +1,3 @@
-window.onload = function() {
-
-
 var canvas = document.getElementById("layer1");
 var context = canvas.getContext("2d");
 
@@ -13,7 +10,16 @@ sprite1.onload = function() {
 	context.drawImage(sprite2,800,650);
 	};
 
-sprite1.src = 'kitty1.png';
-sprite2.src = 'kitty2.png';
+sprite1.src = '../images/kitty1.png';
+sprite2.src = '../images/kitty2.png';
 
-};
+
+
+
+
+
+
+
+
+
+
