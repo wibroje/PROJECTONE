@@ -3,7 +3,7 @@
 var canvas = document.getElementById("canvas");
 var c = canvas.getContext("2d");
 
-var gravity = 0;
+var gravity = 2;
 
 var kitty1 = new Image();
 var kitty2 = new Image();
@@ -138,30 +138,65 @@ function drawPink() {
 ////////////////////////////////////////////////
 
 //BALL OBJECT
-var ball = {
-	speed: 5,
-	x: 0,
-	y: 0,
-	gravity: 0.2,
+// var ball = {
+// 	speed: 5,
+//     position: {
+// 	x: 440,
+// 	y: 340,
+//     },
+//     velocity: {
+//         x: 0,
+//         y: 0
+//     }
+    
+// };
 
-};
+// //DRAW BALL ON CANVAS
+// function drawBall() {
+// 	c.save();
+// 	c.beginPath();
+// 	c.arc(440, 340, 20, 0, 2*Math.PI);
+// 	c.strokeStyle = "black";
+// 	c.stroke();
+// 	c.fillStyle = "red";
+// 	c.fill();
+// 	c.closePath();
+// }
+// 	c.restore();
 
-//DRAW BALL ON CANVAS
+// function updateBall() {
+//     ball.position.x += ball.velocity.x;
+//     ball.position.y += ball.velocity.y;
+
+//     ball.velocity.y -= gravity;
+
+//   }
+
+var p = { x: 440, y: 340 };
+var velo = 1,
+corner = 90,
+rad = 30;
+var ball = { x: p.x, y: p.y };
+var moveX = Math.cos(Math.PI / 180 * corner) * velo;
+var moveY = Math.sin(Math.PI / 180 * corner) * velo;
+
 function drawBall() {
-	c.save();
-	c.beginPath();
-	c.arc(440, 340, 20, 0, 2*Math.PI);
-	c.strokeStyle = "black";
-	c.stroke();
-	c.fillStyle = "red";
-	c.fill();
-	c.closePath();
-}
-	c.restore();
 
-function updateBall() {
+    if (ball.x > canvas.width - rad || ball.x < rad) moveX = -moveX;
+    if (ball.y > 650 - rad || ball.y < rad) moveY = -moveY;
 
-}
+    ball.x += moveX;
+    ball.y += moveY += gravity;
+
+    c.beginPath();
+    c.fillStyle = 'orange';
+    c.arc(ball.x, ball.y, rad, 0, Math.PI * 2, false);
+    c.fill();
+    c.closePath();
+
+    
+    }
+        
 
 
 
@@ -213,29 +248,70 @@ function updatePink() {
 
         pinkCat.position.x += pinkCat.speed * Math.sin(pinkCat.angle);
         pinkCat.position.y -= pinkCat.speed * Math.cos(pinkCat.angle);
+  
+}
 
+}
+
+var d = dist(blueCat.position.x, blueCat.position.y, ball.x, ball.y);
+
+function boxIn() {
+    if (ball.y > 630) {
+        ball.y = 630;
     }
+
+    if (d < blueCat + ball) {
+        alert('collision detected');
+    }
+    
+    if (blueCat.position.x < 0) {
+        blueCat.position.x = 0;
+    }
+    if (blueCat.position.y < 0) {
+        blueCat.position.y = 0;
+    }
+    if (blueCat.position.x > 900) {
+        blueCat.position.x = 900;
+    }
+    if (blueCat.position.y > 650) {
+        blueCat.position.y = 650;
+    }
+    if (pinkCat.position.x < 0) {
+        pinkCat.position.x = 0;
+    }
+    if (pinkCat.position.y < 0) {
+        pinkCat.position.y = 0;
+    }
+    if (pinkCat.position.x > 900) {
+        pinkCat.position.x = 900;
+    }
+    if (pinkCat.position.y > 650) {
+        pinkCat.position.y = 650;
+    }
+
 }
 
 
 function draw() {
 	c.clearRect(0,0,canvas.width,canvas.height);
 
+    updateBlue();
 
-	updateBlue();
+    updatePink();
 
-	updatePink();
+    drawBackground();
 
-	drawBackground();
+    drawBlue();
 
-	drawBlue();
+    drawPink();
 
-	drawPink();
+    drawBall();
 
-	drawBall();
+    boxIn();
 
 	requestAnimationFrame(draw);
 }
+
 
 //BLUE KEYS
 //W: 87 A: 65 D: 68
