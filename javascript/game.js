@@ -64,13 +64,10 @@ function drawBackground(){
 
 
 
-//OBJECT DESCRIPTIONS
+//BLUE CAT OBJECT
 var blueCat = {
-	color: 'transparent',
-	width: 50,
-	height: 50,
 	position: {
-		x: 50,
+		x: 100,
 		y: 600
 	},
 	velocity: {
@@ -85,6 +82,7 @@ var blueCat = {
 
 };
 
+//PINK CAT OBJECT
 var pinkCat = {
 	position: {
 		x: 850,
@@ -101,18 +99,17 @@ var pinkCat = {
 	rotatingRight: false
 };
 
-
-//PUT THIS IN DRAW FUNCTION
+//CREATING BLUE ON CANVAS
 function drawBlue() {
    c.save();
    c.beginPath();
    c.translate(blueCat.position.x, blueCat.position.y);
    c.rotate(blueCat.angle);
-   c.fillStyle = c.drawImage(kitty1,-10,0);
+   c.fillStyle = c.drawImage(kitty1,-24,-26.5);
    c.fill();
    c.closePath();
 
-    // Draw the flame if engine is on
+    //JETPACK GRAPHICS
     if(blueCat.jetpack)
     {
        //Add graphic for jetpack trail later
@@ -120,13 +117,14 @@ function drawBlue() {
     c.restore();
 }
 
+//CREATING PINK ON CANVAS
 function drawPink() {
    c.save();
    c.drawImage(kitty2,800,600);
    c.rotate(pinkCat.angle);
 
 
-    // Draw the flame if engine is on
+    //""
     if(pinkCat.jetpack)
     {
        
@@ -134,8 +132,30 @@ function drawPink() {
     c.restore();
 }
 
-function updateBlue()
-{
+////////////////////////////////////////////////
+///v v v v v v v v v BALLY! v v v v v v v v v///
+////////////////////////////////////////////////
+
+
+
+
+
+
+
+
+
+////////////////////////////////////////////////
+///^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^///
+////////////////////////////////////////////////
+
+
+
+
+
+
+//UPDATE THE POSITION OF BLUE FPS
+function updateBlue() {
+//ROTATION
     if(blueCat.rotatingRight)
     {
         blueCat.angle += Math.PI / 60;
@@ -144,16 +164,18 @@ function updateBlue()
     {
         blueCat.angle -= Math.PI / 60;
     }
+//MOVING FORWARD
+    if(blueCat.jetpack) {
 
-    if(blueCat.jetpack)
-    {
         blueCat.position.x += Math.sin(blueCat.angle);
         blueCat.position.y -= Math.cos(blueCat.angle);
+
     }
 }
 
-function updatePink()
-{
+//UPDATE THE POSITION OF PINK FPS
+function updatePink() {
+//ROTATION
     if(pinkCat.rotatingRight)
     {
         pinkCat.angle += Math.PI / 60;
@@ -162,13 +184,12 @@ function updatePink()
     {
         pinkCat.angle -= Math.PI / 60;
     }
-
+//MOVING FORWARD
     if(pinkCat.jetpack)
     {
         pinkCat.position.x += Math.sin(pinkCat.angle);
         pinkCat.position.y -= Math.cos(pinkCat.angle);
     }
-    // pinkCat.velocity.y -= gravity;
 }
 
 
@@ -193,8 +214,8 @@ function draw() {
 //PINK KEYS 
 //^: 38 <: 37 >: 39
 
-function keyLetGo(event)
-{
+function keyLetGo(event) {
+
     switch(event.keyCode)
     {
         case 65:
