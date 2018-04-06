@@ -10,7 +10,7 @@ var kitty2 = new Image();
 kitty1.src = '../images/kitty1.png';
 kitty2.src = '../images/kitty2.png';
 window.onload = function() {
-    
+
 function drawBackground(){
 
     canvas.width = 900;
@@ -57,17 +57,13 @@ function drawBackground(){
 	c.stroke();
 	c.fill();
 
-}
-
-
-//GRAB THIS AND PUT IN DRAW FUNCTION
-
-
+};
 
 //BLUE CAT OBJECT
 var blueCat = {
+	speed: 5,
 	position: {
-		x: 100,
+		x: 50,
 		y: 600
 	},
 	velocity: {
@@ -75,7 +71,7 @@ var blueCat = {
 		y: 0
 	},
 	gravity: 0,
-	angle: Math.PI / 2,
+	angle: Math.PI * 2,
 	jetpack: false,
 	rotatingLeft: false,
 	rotatingRight: false
@@ -84,6 +80,7 @@ var blueCat = {
 
 //PINK CAT OBJECT
 var pinkCat = {
+	speed: 5,
 	position: {
 		x: 850,
 		y: 600
@@ -93,11 +90,12 @@ var pinkCat = {
 		y: 0
 	},
 	gravity: 0,
-	angle: Math.PI / 2,
+	angle: Math.PI * 2,
 	jetpack: false,
 	rotatingLeft: false,
 	rotatingRight: false
 };
+
 
 //CREATING BLUE ON CANVAS
 function drawBlue() {
@@ -112,7 +110,7 @@ function drawBlue() {
     //JETPACK GRAPHICS
     if(blueCat.jetpack)
     {
-       //Add graphic for jetpack trail later
+       
     }
     c.restore();
 }
@@ -120,9 +118,12 @@ function drawBlue() {
 //CREATING PINK ON CANVAS
 function drawPink() {
    c.save();
-   c.drawImage(kitty2,800,600);
+   c.beginPath();
+   c.translate(pinkCat.position.x, pinkCat.position.y);
    c.rotate(pinkCat.angle);
-
+   c.fillStyle = c.drawImage(kitty2,-24,-26.5);
+   c.fill();
+   c.closePath();
 
     //""
     if(pinkCat.jetpack)
@@ -136,8 +137,31 @@ function drawPink() {
 ///v v v v v v v v v BALLY! v v v v v v v v v///
 ////////////////////////////////////////////////
 
+//BALL OBJECT
+var ball = {
+	speed: 5,
+	x: 0,
+	y: 0,
+	gravity: 0.2,
 
+};
 
+//DRAW BALL ON CANVAS
+function drawBall() {
+	c.save();
+	c.beginPath();
+	c.arc(440, 340, 20, 0, 2*Math.PI);
+	c.strokeStyle = "black";
+	c.stroke();
+	c.fillStyle = "red";
+	c.fill();
+	c.closePath();
+}
+	c.restore();
+
+function updateBall() {
+
+}
 
 
 
@@ -167,8 +191,8 @@ function updateBlue() {
 //MOVING FORWARD
     if(blueCat.jetpack) {
 
-        blueCat.position.x += Math.sin(blueCat.angle);
-        blueCat.position.y -= Math.cos(blueCat.angle);
+        blueCat.position.x += blueCat.speed * Math.sin(blueCat.angle);
+        blueCat.position.y -= blueCat.speed * Math.cos(blueCat.angle);
 
     }
 }
@@ -185,16 +209,19 @@ function updatePink() {
         pinkCat.angle -= Math.PI / 60;
     }
 //MOVING FORWARD
-    if(pinkCat.jetpack)
-    {
-        pinkCat.position.x += Math.sin(pinkCat.angle);
-        pinkCat.position.y -= Math.cos(pinkCat.angle);
+    if(pinkCat.jetpack) {
+
+        pinkCat.position.x += pinkCat.speed * Math.sin(pinkCat.angle);
+        pinkCat.position.y -= pinkCat.speed * Math.cos(pinkCat.angle);
+
     }
 }
 
 
 function draw() {
 	c.clearRect(0,0,canvas.width,canvas.height);
+
+
 	updateBlue();
 
 	updatePink();
@@ -204,6 +231,8 @@ function draw() {
 	drawBlue();
 
 	drawPink();
+
+	drawBall();
 
 	requestAnimationFrame(draw);
 }
