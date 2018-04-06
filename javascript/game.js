@@ -3,6 +3,8 @@
 var canvas = document.getElementById("canvas");
 var c = canvas.getContext("2d");
 
+var gravity = 0;
+
 var kitty1 = new Image();
 var kitty2 = new Image();
 kitty1.src = '../images/kitty1.png';
@@ -64,6 +66,9 @@ function drawBackground(){
 
 //OBJECT DESCRIPTIONS
 var blueCat = {
+	color: 'transparent',
+	width: 50,
+	height: 50,
 	position: {
 		x: 50,
 		y: 600
@@ -100,19 +105,17 @@ var pinkCat = {
 //PUT THIS IN DRAW FUNCTION
 function drawBlue() {
    c.save();
-   c.drawImage(kitty1,50,600);
+   c.beginPath();
+   c.translate(blueCat.position.x, blueCat.position.y);
+   c.rotate(blueCat.angle);
+   c.fillStyle = c.drawImage(kitty1,-10,0);
+   c.fill();
+   c.closePath();
 
     // Draw the flame if engine is on
-    if(drawBlue.jetpack)
+    if(blueCat.jetpack)
     {
-        c.beginPath();
-        c.moveTo(drawBlue.width * -0.5, drawBlue.height * 0.5);
-        c.lineTo(drawBlue.width * 0.5, drawBlue.height * 0.5);
-        c.lineTo(0, drawBlue.height * 0.5 + Math.random() * 10);
-        c.lineTo(drawBlue.width * -0.5, drawBlue.height * 0.5);
-        c.closePath();
-        c.fillStyle = "orange";
-        c.fill();
+       //Add graphic for jetpack trail later
     }
     c.restore();
 }
@@ -120,34 +123,68 @@ function drawBlue() {
 function drawPink() {
    c.save();
    c.drawImage(kitty2,800,600);
+   c.rotate(pinkCat.angle);
+
 
     // Draw the flame if engine is on
-    if(drawPink.jetpack)
+    if(pinkCat.jetpack)
     {
-        c.beginPath();
-        c.moveTo(drawPink.width * -0.5, drawPink.height * 0.5);
-        c.lineTo(drawPink.width * 0.5, drawPink.height * 0.5);
-        c.lineTo(0, drawPink.height * 0.5 + Math.random() * 10);
-        c.lineTo(drawPink.width * -0.5, drawPink.height * 0.5);
-        c.closePath();
-        c.fillStyle = "orange";
-        c.fill();
+       
     }
     c.restore();
 }
 
+function updateBlue()
+{
+    if(blueCat.rotatingRight)
+    {
+        blueCat.angle += Math.PI / 60;
+    }
+    else if(blueCat.rotatingLeft)
+    {
+        blueCat.angle -= Math.PI / 60;
+    }
 
+    if(blueCat.jetpack)
+    {
+        blueCat.position.x += Math.sin(blueCat.angle);
+        blueCat.position.y -= Math.cos(blueCat.angle);
+    }
+}
 
+function updatePink()
+{
+    if(pinkCat.rotatingRight)
+    {
+        pinkCat.angle += Math.PI / 60;
+    }
+    else if(pinkCat.rotatingLeft)
+    {
+        pinkCat.angle -= Math.PI / 60;
+    }
+
+    if(pinkCat.jetpack)
+    {
+        pinkCat.position.x += Math.sin(pinkCat.angle);
+        pinkCat.position.y -= Math.cos(pinkCat.angle);
+    }
+    // pinkCat.velocity.y -= gravity;
+}
 
 
 function draw() {
 	c.clearRect(0,0,canvas.width,canvas.height);
+	updateBlue();
+
+	updatePink();
 
 	drawBackground();
 
 	drawBlue();
 
 	drawPink();
+
+	requestAnimationFrame(draw);
 }
 
 //BLUE KEYS
@@ -156,12 +193,76 @@ function draw() {
 //PINK KEYS 
 //^: 38 <: 37 >: 39
 
+function keyLetGo(event)
+{
+    switch(event.keyCode)
+    {
+        case 65:
+            // Left  
+            blueCat.rotatingLeft = false;
+            break;
+        case 68:
+            // Right  
+            blueCat.rotatingRight = false;
+            break;
+        case 87:
+            // Up  
+            blueCat.jetpack = false;
+            break;
 
-// function move(e) {
-// 	if(e.keyCode==)
-// }
-	
-// document.addEventListener('keydown', keyPressed);
+            case 37:
+            // Left  
+            pinkCat.rotatingLeft = false;
+            break;
+        case 39:
+            // Right  
+            pinkCat.rotatingRight = false;
+            break;
+        case 38:
+            // Up  
+            pinkCat.jetpack = false;
+            break;
+    }
+}
+
+document.addEventListener('keyup', keyLetGo);
+
+
+
+function keyPressed(event)
+{
+    switch(event.keyCode)
+    {
+        case 65:
+            // Left  
+            blueCat.rotatingLeft = true;
+            break;
+        case 68:
+            // Right  
+            blueCat.rotatingRight = true;
+            break;
+        case 87:
+            // Up  
+            blueCat.jetpack = true;
+            break;
+
+        case 37:
+            // Left  
+            pinkCat.rotatingLeft = true;
+            break;
+        case 39:
+            // Right  
+            pinkCat.rotatingRight = true;
+            break;
+        case 38:
+            // Up  
+            pinkCat.jetpack = true;
+            break;
+    }
+}
+
+document.addEventListener('keydown', keyPressed);
+
 
 draw();
 
