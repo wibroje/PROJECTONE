@@ -15,7 +15,15 @@ kitty1.src = '../images/kitty1.png';
 kitty2.src = '../images/kitty2.png';
 window.onload = function() {
 
-function drawBackground(){
+var bgMusic = new Audio("../sounds/bg.wav");
+// bgMusic.play();
+
+var boost = new Audio("../sounds/boost.wav");
+var boost2 = new Audio("../sounds/boost.wav");
+var blueBoost = new Audio("../sounds/blueboost.flac");
+var pinkBoost = new Audio('../sounds/pinkboost.mp3');
+
+function drawBackground() {
 
     canvas.width = 900;
     canvas.height = 700;
@@ -150,6 +158,12 @@ function drawBlue() {
     //JETPACK GRAPHICS
     if(blueCat.jetpack) {
 
+        
+        // blueBoost.play();
+
+        
+
+
         c.beginPath();
         c.moveTo(blueCat.width * -0.5, blueCat.height * 0.5);
         c.lineTo(blueCat.width * 0.5, blueCat.height * 0.5);
@@ -193,6 +207,11 @@ function drawPink() {
     //""
     if(pinkCat.jetpack)
     {
+        
+        // pinkBoost.play();
+        
+
+
         c.beginPath();
         c.moveTo(pinkCat.width * -0.5, pinkCat.height * 0.5);
         c.lineTo(pinkCat.width * 0.5, pinkCat.height * 0.5);
@@ -472,13 +491,19 @@ function score() {
 
     if (pinkScore == 20) {
         alert('pink won');
+        location.reload();
     }
         
     //score top of basket right
     if (ball.y < 345 && ball.y > 335 && ball.x > 780 && ball.x < 840) {
-        $('#p1score').html(blueScore = blueScore + 1);
+        $('#p2score').html(blueScore = blueScore + 1);
         wait(2000);
+        resetPoint();
+    }
 
+    if (blueScore == 20) {
+        alert('blue won');
+        location.reload();
     }
     //deflect left rim front
     if (ball.y < 365 && ball.y > 335 && ball.x > 140 && ball.x < 200) {
@@ -555,6 +580,7 @@ function keyLetGo(event) {
         case 87:
             // Up  
             blueCat.jetpack = false;
+            boost.pause();
             break;
 
             case 37:
@@ -568,6 +594,7 @@ function keyLetGo(event) {
         case 38:
             // Up  
             pinkCat.jetpack = false;
+            boost2.pause();
             break;
     }
 }
@@ -591,6 +618,8 @@ function keyPressed(event)
         case 87:
             // Up  
             blueCat.jetpack = true;
+            boost.loop = true;
+            boost.play();
             break;
 
         case 37:
@@ -604,6 +633,8 @@ function keyPressed(event)
         case 38:
             // Up  
             pinkCat.jetpack = true;
+            boost2.loop = true;
+            boost2.play();
             break;
     }
 }
