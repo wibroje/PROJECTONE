@@ -389,12 +389,24 @@ function boxIn() {
 
 }
 
+function wait(ms){
+   var start = new Date().getTime();
+   var end = start;
+   while(end < start + ms) {
+     end = new Date().getTime();
+  }
+}
+
 function score() {
+
     if (ball.y < 360 && ball.y > 320 && ball.x > 60 && ball.x < 140) {
-        console.log('player two scored');
+        wait(7000);
+        location.reload();
     }
+
     if (ball.y < 360 && ball.y > 320 && ball.x > 760 && ball.x < 840) {
-        console.log('player one scored');
+        wait(7000);
+        location.reload();
     }
 }
 
