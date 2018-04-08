@@ -1,6 +1,10 @@
+$(document).ready(function (){
+
+
 //canvas setup
 
 var canvas = document.getElementById("canvas");
+
 var c = canvas.getContext("2d");
 
 var gravity = .3;
@@ -221,6 +225,8 @@ function drawPink() {
 
 }
 
+
+
 ////////////////////////////////////////////////
 ///v v v v v v v v v BALLY! v v v v v v v v v///
 ////////////////////////////////////////////////
@@ -249,37 +255,24 @@ function drawBall() {
 
     }
 
+function resetPoint() {
+    ball.x = 440;
+    ball.y = 350;
+    moveX = 0;
+    moveY = 0;
+
+    blueCat.position.x = 50;
+    blueCat.position.y = 600;
+    blueCat.angle = Math.PI * 2;
+    pinkCat.position.x = 850;
+    pinkCat.position.y = 600;
+    pinkCat.angle = Math.PI * 2;
+}
+
 
 ////////////////////////////////////////////////
 ///^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^///
 ////////////////////////////////////////////////
-
-function drawBackboard() {
-
-    c.beginPath();
-    c.fillStyle = 'white';
-    c.rect(50,220,10,140);
-    c.fill();
-    c.closePath();
-
-    c.beginPath();
-    c.fillStyle = 'white';
-    c.rect(840,220,10,140);
-    c.fill();
-    c.closePath();
-
-    c.beginPath();
-    c.fillStyle = 'crimson';
-    c.rect(60,340,80,5);
-    c.fill();
-    c.closePath();
-
-    c.beginPath();
-    c.fillStyle = 'crimson';
-    c.rect(760,340,80,5);
-    c.fill();
-    c.closePath();
-}
 
 
 //UPDATE THE POSITION OF BLUE FPS
@@ -389,6 +382,57 @@ function boxIn() {
 
 }
 
+function drawBackboard() {
+
+    c.beginPath();
+    c.fillStyle = 'white';
+    c.rect(50,220,10,140);
+    c.fill();
+    c.closePath();
+
+    c.beginPath();
+    c.fillStyle = 'white';
+    c.rect(840,220,10,140);
+    c.fill();
+    c.closePath();
+
+    c.beginPath();
+    c.fillStyle = 'crimson';
+    c.rect(60,340,80,5);
+    c.fill();
+    c.closePath();
+
+    c.beginPath();
+    c.fillStyle = 'crimson';
+    c.rect(760,340,80,5);
+    c.fill();
+    c.closePath();
+
+    c.beginPath();
+    c.strokeStyle = 'black';
+    c.fillStyle = 'rgba(100,100,100,.5)';
+    c.moveTo(64, 345);
+    c.lineTo(64, 400);
+    c.lineTo(136, 400);
+    c.lineTo(136, 345);
+    c.stroke();
+    c.fill();
+    c.closePath();
+
+    c.beginPath();
+    c.strokeStyle = 'black';
+    c.fillStyle = 'rgba(100,100,100,.5)';
+    c.moveTo(764, 345);
+    c.lineTo(764, 400);
+    c.lineTo(836, 400);
+    c.lineTo(836, 345);
+    c.stroke();
+    c.fill();
+    c.closePath();
+}
+
+
+
 function wait(ms){
    var start = new Date().getTime();
    var end = start;
@@ -397,18 +441,65 @@ function wait(ms){
   }
 }
 
+function drawExplosionLeft() {
+        c.save() 
+        c.beginPath();
+        c.fillStyle = c.drawImage(explosion,0,125);
+        c.fill();
+        c.closePath();
+    }
+
+var pinkScore = 0;
+var blueScore = 0;
+
+//314 X 255
 function score() {
 
-    if (ball.y < 360 && ball.y > 320 && ball.x > 60 && ball.x < 140) {
-        wait(7000);
-        location.reload();
+    //backboard left collision
+    if (ball.y < 360 && ball.y > 220 && ball.x > 0 && ball.x < 100) {
+        ball.x = 100;   
+    }
+    //backboard right collision
+    if (ball.y < 360 && ball.y > 220 && ball.x < 900 && ball.x > 800) {
+        ball.x = 800;
+    }
+    //score top of basket left
+    if (ball.y < 345 && ball.y > 335 && ball.x > 60 && ball.x < 140) {
+        $('#p2score').html(pinkScore = pinkScore + 1);
+        wait(2000);
+        resetPoint();
     }
 
-    if (ball.y < 360 && ball.y > 320 && ball.x > 760 && ball.x < 840) {
-        wait(7000);
-        location.reload();
+    if (pinkScore == 20) {
+        alert('pink won');
+    }
+        
+    //score top of basket right
+    if (ball.y < 345 && ball.y > 335 && ball.x > 780 && ball.x < 840) {
+        $('#p1score').html(blueScore = blueScore + 1);
+        wait(2000);
+
+    }
+    //deflect left rim front
+    if (ball.y < 365 && ball.y > 335 && ball.x > 140 && ball.x < 200) {
+        moveX += 1;
+    }
+    //deflect right rim front
+    if (ball.y < 365 && ball.y > 335 && ball.x < 760 && ball.x > 700) {
+        moveX = -moveX;
+    }
+    //deflect left under
+    if (ball.y > 375 && ball.y < 400 && ball.x >= 0 && ball.x < 150) {
+        moveY = -moveY;
+        moveX = -moveX;
+    }
+    //deflect right under
+    if (ball.y > 375 && ball.y < 400 && ball.x > 750 && ball.x <= 900) {
+        moveY = -moveY;
+        moveX = -moveX;
     }
 }
+
 
 
 function draw() {
@@ -523,5 +614,7 @@ document.addEventListener('keydown', keyPressed);
 draw();
 
 	};
+
+});
 
 
