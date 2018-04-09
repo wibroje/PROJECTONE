@@ -20,8 +20,9 @@ var bgMusic = new Audio("../sounds/bg.wav");
 
 var boost = new Audio("../sounds/boost.wav");
 var boost2 = new Audio("../sounds/boost.wav");
-var blueBoost = new Audio("../sounds/blueboost.flac");
-var pinkBoost = new Audio('../sounds/pinkboost.mp3');
+var explosion1 = new Audio("../sounds/blueboost.flac");
+var explosion2 = new Audio("../sounds/blueboost.flac");
+
 
 function drawBackground() {
 
@@ -142,8 +143,6 @@ c.beginPath();
 
 }
 
-
-
 //CREATING BLUE ON CANVAS
 function drawBlue() {
    c.save();
@@ -157,12 +156,6 @@ function drawBlue() {
 
     //JETPACK GRAPHICS
     if(blueCat.jetpack) {
-
-        
-        // blueBoost.play();
-
-        
-
 
         c.beginPath();
         c.moveTo(blueCat.width * -0.5, blueCat.height * 0.5);
@@ -196,21 +189,15 @@ function drawBlue() {
 
 //CREATING PINK ON CANVAS
 function drawPink() {
-   c.save();
-   c.beginPath();
-   c.translate(pinkCat.position.x, pinkCat.position.y);
-   c.rotate(pinkCat.angle);
-   c.fillStyle = c.drawImage(kitty2,-24,-26.5);
-   c.fill();
-   c.closePath();
+    c.save();
+    c.beginPath();
+    c.translate(pinkCat.position.x, pinkCat.position.y);
+    c.rotate(pinkCat.angle);
+    c.fillStyle = c.drawImage(kitty2,-24,-26.5);
+    c.fill();
+    c.closePath();
 
-    //""
-    if(pinkCat.jetpack)
-    {
-        
-        // pinkBoost.play();
-        
-
+    if(pinkCat.jetpack) {
 
         c.beginPath();
         c.moveTo(pinkCat.width * -0.5, pinkCat.height * 0.5);
@@ -244,8 +231,6 @@ function drawPink() {
 
 }
 
-
-
 ////////////////////////////////////////////////
 ///v v v v v v v v v BALLY! v v v v v v v v v///
 ////////////////////////////////////////////////
@@ -273,6 +258,13 @@ function drawBall() {
     c.closePath();
 
     }
+
+function resetBall() {
+    ball.x = 440;
+    ball.y = 350;
+    moveX = 0;
+    moveY = 0;
+}
 
 function resetPoint() {
     ball.x = 440;
@@ -371,7 +363,7 @@ function playCats() {
 function boxIn() {
 
     if (ball.y > 640) {
-        moveY += 1;
+        resetBall();
     }
     
     if (blueCat.position.x < 24) {
@@ -489,19 +481,19 @@ function score() {
         resetPoint();
     }
 
-    if (pinkScore == 20) {
+    if (pinkScore == 10) {
         alert('pink won');
         location.reload();
     }
         
     //score top of basket right
     if (ball.y < 345 && ball.y > 335 && ball.x > 780 && ball.x < 840) {
-        $('#p2score').html(blueScore = blueScore + 1);
+        $('#p1score').html(blueScore = blueScore + 1);
         wait(2000);
         resetPoint();
     }
 
-    if (blueScore == 20) {
+    if (blueScore == 10) {
         alert('blue won');
         location.reload();
     }
@@ -620,6 +612,7 @@ function keyPressed(event)
             blueCat.jetpack = true;
             boost.loop = true;
             boost.play();
+            explosion1.play();
             break;
 
         case 37:
@@ -635,6 +628,7 @@ function keyPressed(event)
             pinkCat.jetpack = true;
             boost2.loop = true;
             boost2.play();
+            explosion2.play();
             break;
     }
 }

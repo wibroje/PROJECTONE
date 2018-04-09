@@ -4,5 +4,97 @@
     margin-left: auto;
     margin-right: auto;
     display: block;
-    margin-top: 5%;
+   
 }
+
+.col-lg-2 {
+	text-align: center;
+}
+
+#mainbg {
+	background-image: url("http://wallpapersfan.com/wp-content/uploads/2017/11/425643-www.wallpapersfan.com.jpg");
+}
+
+.container {
+	text-align: center;
+}
+
+.row {
+	justify-content: space-between;
+}
+
+#title {
+	font-family: 'Press Start 2P', cursive;
+	font-size: 500%;
+	text-shadow:
+		-1px -1px 0 white,
+		1px -1px 0 white,
+		-1px 1px 0 white,
+		1px 1px 0 white;
+		background: -webkit-linear-gradient(pink, skyblue);
+	border: solid yellow 10px;
+	border-radius: 10px;
+	margin-top: 10px;
+}
+
+.stacks {
+	height: 30vh;
+}
+
+.heading {
+	font-family: 'Cute Font', cursive;
+	font-size: 400%;
+}
+
+a {
+	color: yellow;
+}
+
+a:hover {
+	text-decoration: none;
+}
+
+.clip {
+	border: solid transparent 5px;
+	border-radius: 5px;
+}
+#instructions2 {
+	font-size: 500%;
+}
+
+#play2 {
+	font-size: 300%;
+}
+
+#richlore {
+	background-color: rgba(255,50,50,.7);
+	
+}
+
+#richlore2 {
+	background-color: rgba(25,25,255,.7);
+
+}
+
+#richlore3 {
+	background-image: url("https://i.pinimg.com/originals/ba/fc/61/bafc61aa1bf8e92c991a5afe45bdef84.jpg");
+	background-size: contain;
+	background-repeat: no-repeat;
+	opacity: .8;
+}
+
+p {
+	font-family: 'Jura', sans-serif;
+	font-size: 150%;
+}
+
+/*
+
+font-family: 'Press Start 2P', cursive;
+font-family: 'Cute Font', cursive;
+font-family: 'Audiowide', cursive;
+font-family: 'Jura', sans-serif;*/
+
+
+
+

@@ -2,20 +2,26 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>Catsketball</title>
+	<title>Play Catsketball</title>
 	<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" type="text/css">
 	<link href="../cssfiles/style.css" rel="stylesheet" type="text/css">
 </head>
 
-<body>
-	<h1>Score</h1>
-	<h2>Player1</h2>
-	<span id="p1score"></span>
+<body class="container-fluid">
+	<section class="row">
+		<div class="col-lg-2">
+		<h2>Player1</h2>
+		<span id="p1score"></span>
+		</div>
 
-	<h2>Player2</h2>
-	<span id="p2score"></span>
-	<canvas id="canvas"></canvas>
-	
+		<div class="col-lg-8">
+		<canvas id="canvas"></canvas>
+		</div>
+		<div class="col-lg-2">
+		<h2>Player2</h2>
+		<span id="p2score"></span>
+		</div>
+	</section>
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 
