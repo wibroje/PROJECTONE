@@ -4,7 +4,49 @@
     margin-left: auto;
     margin-right: auto;
     display: block;
-   
+    border: solid rgba(255,255,255,.5) 1px; 
+    border-radius: 10px; 
+    box-shadow: 0px 0px 100px #fff;
+}
+
+#gamebody {
+	background-color: black;
+}
+
+#playerhead1 {
+	font-family: 'Cute Font', cursive;
+	font-size: 800%;
+	background: -webkit-linear-gradient(skyblue, black);
+  	-webkit-background-clip: text;
+  	-webkit-text-fill-color: transparent;
+  	text-shadow: 0px 0px 50px #fff;
+}
+
+#playerhead2 {
+	font-family: 'Cute Font', cursive;
+	font-size: 800%;
+	background: -webkit-linear-gradient(pink, black);
+  	-webkit-background-clip: text;
+  	-webkit-text-fill-color: transparent;
+  	text-shadow: 0px 0px 50px #fff;
+}
+
+#p1score {
+	font-family: 'Audiowide', cursive;
+	font-size: 600%;
+	background: -webkit-linear-gradient(skyblue, black);
+  	-webkit-background-clip: text;
+  	-webkit-text-fill-color: transparent;
+  	text-shadow: 0px 0px 50px #fff;
+}
+
+#p2score {
+	font-family: 'Audiowide', cursive;
+	font-size: 600%;
+	background: -webkit-linear-gradient(pink, black);
+  	-webkit-background-clip: text;
+  	-webkit-text-fill-color: transparent;
+  	text-shadow: 0px 0px 50px #fff;
 }
 
 .col-lg-2 {
@@ -86,6 +128,12 @@ a:hover {
 p {
 	font-family: 'Jura', sans-serif;
 	font-size: 150%;
+}
+
+#instructions-text {
+	text-align: center;
+	margin-left: 15%;
+	margin-right: 15%;
 }
 
 /*

@@ -595,10 +595,9 @@ document.addEventListener('keyup', keyLetGo);
 
 
 
-function keyPressed(event)
-{
-    switch(event.keyCode)
-    {
+function keyPressed(event) {
+
+    switch(event.keyCode) {
         case 65:
             // Left  
             blueCat.rotatingLeft = true;
@@ -629,6 +628,7 @@ function keyPressed(event)
             boost2.loop = true;
             boost2.play();
             explosion2.play();
+            event.preventDefault();
             break;
     }
 }
