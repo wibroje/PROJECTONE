@@ -38,6 +38,7 @@
 
 #mainbg {
 	background-image: url("http://wallpapersfan.com/wp-content/uploads/2017/11/425643-www.wallpapersfan.com.jpg");
+	background-size: cover;
 }
 
 .container {
@@ -101,13 +102,6 @@ a:hover {
 
 }
 
-#richlore3 {
-	background-image: url("https://i.pinimg.com/originals/ba/fc/61/bafc61aa1bf8e92c991a5afe45bdef84.jpg");
-	background-size: contain;
-	background-repeat: no-repeat;
-	opacity: .8;
-}
-
 p {
 	font-family: 'Jura', sans-serif;
 	font-size: 150%;
@@ -117,6 +111,14 @@ p {
 	text-align: center;
 	margin-left: 15%;
 	margin-right: 15%;
+}
+
+body {
+	background-color: black;
+}
+
+.inst-text {
+	color: white;
 }
 
 /*

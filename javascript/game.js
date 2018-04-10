@@ -14,20 +14,34 @@ var kitty2 = new Image();
 kitty1.src = '../images/kitty1.png';
 kitty2.src = '../images/kitty2.png';
 window.onload = function() {
-
 var crowd = new Audio("../sounds/crowd.wav");
 crowd.loop = true;
+crowd.volume = 0.8;
 crowd.play();
 var bgMusic = new Audio("../sounds/r-bg.wav");
+bgMusic.loop = true;
+bgMusic.volume = 1;
 bgMusic.play();
 
-var boost = new Audio("../sounds/r-boost.wav");
-var boost2 = new Audio("../sounds/r-boost.wav");
-var explosion1 = new Audio("../sounds/r-ignition.wav");
-var explosion2 = new Audio("../sounds/r-ignition.wav");
 var swish = new Audio('../sounds/r-swish.wav');
-var horn = new Audio('../sounds/r-horn.wav');
-var win = new Audio('../sounds/r-win.wav');
+
+//Play random goal sound
+var goalSound = [
+    '../sounds/r-horn.wav'
+]
+
+var randomGoal = goalSound[Math.floor(Math.random() * goalSound.length)];
+
+var horn = new Audio(randomGoal);
+
+//Play random victory song
+var winMusic = [
+    '../sounds/r-win.wav'
+]
+
+var randomSong = winMusic[Math.floor(Math.random() * winMusic.length)];
+
+var win = new Audio(randomSong);
 
 function drawBackground() {
 
@@ -449,14 +463,6 @@ function wait(ms){
   }
 }
 
-function drawExplosionLeft() {
-        c.save() 
-        c.beginPath();
-        c.fillStyle = c.drawImage(explosion,0,125);
-        c.fill();
-        c.closePath();
-    }
-
 var pinkScore = 0;
 var blueScore = 0;
 
@@ -565,7 +571,14 @@ function draw() {
 
 //PINK KEYS 
 //^: 38 <: 37 >: 39
+var boost = new Audio("../sounds/r-boost.wav");
+var boost2 = new Audio("../sounds/r-boost.wav");
+var explosion1 = new Audio("../sounds/r-ignition.wav");
+explosion1.volume = 0.7;
+var explosion2 = new Audio("../sounds/r-ignition.wav");
+explosion2.volume = 0.7;
 
+//When keys are released, stop them kitties
 function keyLetGo(event) {
 
     switch(event.keyCode)
@@ -581,7 +594,10 @@ function keyLetGo(event) {
         case 87:
             // Up  
             blueCat.jetpack = false;
+            explosion1.pause();
+            explosion1.currentTime = 0;
             boost.pause();
+            boost.currentTime = 0;
             break;
 
             case 37:
@@ -595,7 +611,10 @@ function keyLetGo(event) {
         case 38:
             // Up  
             pinkCat.jetpack = false;
+            explosion2.pause();
+            explosion2.currentTime = 0;
             boost2.pause();
+            boost2.currentTime = 0;
             break;
     }
 }
@@ -603,7 +622,7 @@ function keyLetGo(event) {
 document.addEventListener('keyup', keyLetGo);
 
 
-
+//Move dem kitties
 function keyPressed(event) {
 
     switch(event.keyCode) {
@@ -644,7 +663,7 @@ function keyPressed(event) {
 
 document.addEventListener('keydown', keyPressed);
 
-
+//Call draw which calls all draw and update functions
 draw();
 
 	};
