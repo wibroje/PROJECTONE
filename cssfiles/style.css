@@ -1,3 +1,4 @@
+
 #canvas {
     padding-left: 0;
     padding-right: 0;
@@ -25,24 +26,6 @@
 #playerhead2 {
 	font-family: 'Cute Font', cursive;
 	font-size: 800%;
-	background: -webkit-linear-gradient(pink, black);
-  	-webkit-background-clip: text;
-  	-webkit-text-fill-color: transparent;
-  	text-shadow: 0px 0px 50px #fff;
-}
-
-#p1score {
-	font-family: 'Audiowide', cursive;
-	font-size: 600%;
-	background: -webkit-linear-gradient(skyblue, black);
-  	-webkit-background-clip: text;
-  	-webkit-text-fill-color: transparent;
-  	text-shadow: 0px 0px 50px #fff;
-}
-
-#p2score {
-	font-family: 'Audiowide', cursive;
-	font-size: 600%;
 	background: -webkit-linear-gradient(pink, black);
   	-webkit-background-clip: text;
   	-webkit-text-fill-color: transparent;

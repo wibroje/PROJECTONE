@@ -15,14 +15,19 @@ kitty1.src = '../images/kitty1.png';
 kitty2.src = '../images/kitty2.png';
 window.onload = function() {
 
-var bgMusic = new Audio("../sounds/bg.wav");
-// bgMusic.play();
+var crowd = new Audio("../sounds/crowd.wav");
+crowd.loop = true;
+crowd.play();
+var bgMusic = new Audio("../sounds/r-bg.wav");
+bgMusic.play();
 
-var boost = new Audio("../sounds/boost.wav");
-var boost2 = new Audio("../sounds/boost.wav");
-var explosion1 = new Audio("../sounds/blueboost.flac");
-var explosion2 = new Audio("../sounds/blueboost.flac");
-
+var boost = new Audio("../sounds/r-boost.wav");
+var boost2 = new Audio("../sounds/r-boost.wav");
+var explosion1 = new Audio("../sounds/r-ignition.wav");
+var explosion2 = new Audio("../sounds/r-ignition.wav");
+var swish = new Audio('../sounds/r-swish.wav');
+var horn = new Audio('../sounds/r-horn.wav');
+var win = new Audio('../sounds/r-win.wav');
 
 function drawBackground() {
 
@@ -280,11 +285,9 @@ function resetPoint() {
     pinkCat.angle = Math.PI * 2;
 }
 
-
 ////////////////////////////////////////////////
 ///^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^///
 ////////////////////////////////////////////////
-
 
 //UPDATE THE POSITION OF BLUE FPS
 function updateBlue() {
@@ -323,7 +326,7 @@ function updatePink() {
         pinkCat.position.x += pinkCat.speed * Math.sin(pinkCat.angle);
         pinkCat.position.y -= pinkCat.speed * Math.cos(pinkCat.angle);
   
-}
+    }
 
 }
 //////////////////////////////
@@ -339,7 +342,6 @@ function dist(x1, y1, x2, y2) {
     return Math.pow(xDist, 2) + Math.pow(yDist, 2);
 } 
 
-
 function playCats() {
     if (dist(blueCat.position.x, blueCat.position.y, ball.x, ball.y) < blueCat.position.x + blueCat.position.y + ball.x + ball.y) {
         moveX += 1;
@@ -351,9 +353,6 @@ function playCats() {
         moveY -= 1;
     }
 }
-
-
-
 
 //////////////////////////////
 
@@ -442,8 +441,6 @@ function drawBackboard() {
     c.closePath();
 }
 
-
-
 function wait(ms){
    var start = new Date().getTime();
    var end = start;
@@ -476,26 +473,44 @@ function score() {
     }
     //score top of basket left
     if (ball.y < 345 && ball.y > 335 && ball.x > 60 && ball.x < 140) {
+        swish.play();
+        horn.play();
         $('#p2score').html(pinkScore = pinkScore + 1);
-        wait(2000);
+        wait(10);
         resetPoint();
+        setTimeout(function() {
+        wait(1000);
+        }, 50);
     }
 
     if (pinkScore == 10) {
-        alert('pink won');
-        location.reload();
+        win.play();
+        $('#p2score').html(' has won!!');
+        win.play();
+        // crowd.pause();
+        bgMusic.pause();
+        wait(100);
     }
         
     //score top of basket right
     if (ball.y < 345 && ball.y > 335 && ball.x > 780 && ball.x < 840) {
+        swish.play();
+        horn.play();
         $('#p1score').html(blueScore = blueScore + 1);
-        wait(2000);
+        wait(10);
         resetPoint();
+        setTimeout(function() {
+        wait(1000);
+        }, 50);
     }
 
     if (blueScore == 10) {
-        alert('blue won');
-        location.reload();
+        resetPoint();
+        $('#p1score').html(' has won!!');
+        win.play();
+        // crowd.pause();
+        bgMusic.pause();
+        wait(100);
     }
     //deflect left rim front
     if (ball.y < 365 && ball.y > 335 && ball.x > 140 && ball.x < 200) {
@@ -516,8 +531,6 @@ function score() {
         moveX = -moveX;
     }
 }
-
-
 
 function draw() {
 	c.clearRect(0,0,canvas.width,canvas.height);
@@ -547,15 +560,11 @@ function draw() {
 	requestAnimationFrame(draw);
 }
 
-
 //BLUE KEYS
 //W: 87 A: 65 D: 68
 
 //PINK KEYS 
 //^: 38 <: 37 >: 39
-
-
-
 
 function keyLetGo(event) {
 
