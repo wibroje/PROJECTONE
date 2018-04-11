@@ -24,24 +24,9 @@ bgMusic.volume = 1;
 bgMusic.play();
 
 var swish = new Audio('../sounds/r-swish.wav');
+var horn = new Audio('../sounds/r-horn.wav');
+var win = new Audio('../sounds/r-win.wav');
 
-//Play random goal sound
-var goalSound = [
-    '../sounds/r-horn.wav'
-]
-
-var randomGoal = goalSound[Math.floor(Math.random() * goalSound.length)];
-
-var horn = new Audio(randomGoal);
-
-//Play random victory song
-var winMusic = [
-    '../sounds/r-win.wav'
-]
-
-var randomSong = winMusic[Math.floor(Math.random() * winMusic.length)];
-
-var win = new Audio(randomSong);
 
 function drawBackground() {
 
@@ -271,8 +256,10 @@ function drawBall() {
     ball.y += moveY +=gravity;
 
     c.beginPath();
+    c.strokeStyle = 'black'
     c.fillStyle = 'orange';
     c.arc(ball.x, ball.y, rad, 0, Math.PI * 2, false);
+    c.stroke();
     c.fill();
     c.closePath();
 
@@ -405,7 +392,7 @@ function boxIn() {
     }
 
 }
-
+//
 function drawBackboard() {
 
     c.beginPath();
@@ -454,7 +441,7 @@ function drawBackboard() {
     c.fill();
     c.closePath();
 }
-
+//helps separate points a little
 function wait(ms){
    var start = new Date().getTime();
    var end = start;
@@ -463,21 +450,20 @@ function wait(ms){
   }
 }
 
+//stores the scoring mechanism and hoop collision
 var pinkScore = 0;
 var blueScore = 0;
-
-//314 X 255
 function score() {
 
-    //backboard left collision
+//backboard left collision
     if (ball.y < 360 && ball.y > 220 && ball.x > 0 && ball.x < 100) {
         ball.x = 100;   
     }
-    //backboard right collision
+//backboard right collision
     if (ball.y < 360 && ball.y > 220 && ball.x < 900 && ball.x > 800) {
         ball.x = 800;
     }
-    //score top of basket left
+//score top of basket left
     if (ball.y < 345 && ball.y > 335 && ball.x > 60 && ball.x < 140) {
         swish.play();
         horn.play();
@@ -488,17 +474,17 @@ function score() {
         wait(1000);
         }, 50);
     }
-
+//pink wins the game
     if (pinkScore == 10) {
-        win.play();
         $('#p2score').html(' has won!!');
         win.play();
-        // crowd.pause();
+        crowd.pause();
         bgMusic.pause();
-        wait(100);
+        $('#secret').html("<img src='https://i.embed.ly/1/image?url=https%3A%2F%2Fthumbs.gfycat.com%2FYoungOpenHawk-size_restricted.gif&key=522baf40bd3911e08d854040d3dc5c07'>");
+        // wait(100);
     }
         
-    //score top of basket right
+//score top of basket right
     if (ball.y < 345 && ball.y > 335 && ball.x > 780 && ball.x < 840) {
         swish.play();
         horn.play();
@@ -509,14 +495,14 @@ function score() {
         wait(1000);
         }, 50);
     }
-
+//blue wins the game
     if (blueScore == 10) {
-        resetPoint();
         $('#p1score').html(' has won!!');
         win.play();
-        // crowd.pause();
+        crowd.pause();
         bgMusic.pause();
-        wait(100);
+        $('#secret').html("<img src='https://i.embed.ly/1/image?url=https%3A%2F%2Fthumbs.gfycat.com%2FYoungOpenHawk-size_restricted.gif&key=522baf40bd3911e08d854040d3dc5c07'>");
+        // wait(100);
     }
     //deflect left rim front
     if (ball.y < 365 && ball.y > 335 && ball.x > 140 && ball.x < 200) {
@@ -537,7 +523,7 @@ function score() {
         moveX = -moveX;
     }
 }
-
+//Stores drawings and position updates
 function draw() {
 	c.clearRect(0,0,canvas.width,canvas.height);
 
@@ -574,15 +560,14 @@ function draw() {
 var boost = new Audio("../sounds/r-boost.wav");
 var boost2 = new Audio("../sounds/r-boost.wav");
 var explosion1 = new Audio("../sounds/r-ignition.wav");
-explosion1.volume = 0.7;
+explosion1.volume = 0.8;
 var explosion2 = new Audio("../sounds/r-ignition.wav");
-explosion2.volume = 0.7;
+explosion2.volume = 0.8;
 
 //When keys are released, stop them kitties
 function keyLetGo(event) {
 
-    switch(event.keyCode)
-    {
+    switch(event.keyCode) {
         case 65:
             // Left  
             blueCat.rotatingLeft = false;

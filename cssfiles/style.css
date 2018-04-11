@@ -1,4 +1,10 @@
+#secret {
+	text-align: center;
+}
 
+#moveblue {
+	text-align: center;
+}
 #canvas {
     padding-left: 0;
     padding-right: 0;
@@ -20,7 +26,7 @@
 	background: -webkit-linear-gradient(skyblue, black);
   	-webkit-background-clip: text;
   	-webkit-text-fill-color: transparent;
-  	text-shadow: 0px 0px 50px #fff;
+  	/*text-shadow: 0px 0px 50px #fff;*/
 }
 
 #playerhead2 {
@@ -29,7 +35,7 @@
 	background: -webkit-linear-gradient(pink, black);
   	-webkit-background-clip: text;
   	-webkit-text-fill-color: transparent;
-  	text-shadow: 0px 0px 50px #fff;
+  	/*text-shadow: 0px 0px 50px #fff;*/
 }
 
 .col-lg-2 {
