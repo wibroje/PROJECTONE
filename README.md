@@ -44,6 +44,6 @@ I would like to go back in and redo the character hitboxes into circle objects s
 
 -Tech:
 HTML Canvas and Javascript/ jQuery
-I chose not to use libraries because I wanted a challenge
+I chose not to use libraries but am interested in using Pixi.js and Phaser in projects to come.
 
 Thanks for looking, hope you enjoy the game.
